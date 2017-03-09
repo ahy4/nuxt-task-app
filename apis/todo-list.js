@@ -1,7 +1,4 @@
 const Router = require('koa-router');
-const ObjectId = require('mongoose').Schema.Types.ObjectId;
-
-console.log('objectid: ', new ObjectId('123345'));
 
 module.exports = TodoList =>
 
@@ -16,6 +13,13 @@ module.exports = TodoList =>
     })
 
     .get('/:lid', async (ctx, next) => {
-      console.log(new ObjectId(String(ctx.params.lid)));
-      ctx.body = await TodoList.findById(String(ctx.params.lid));
+      ctx.body = await TodoList.findById(Number(ctx.params.lid));
+    })
+
+    .put('/:lid', async (ctx, next) => {
+      ctx.body = await TodoList.findByIdAndUpdate(Number(ctx.params.lid), ctx.request.body);
+    })
+
+    .delete('/:lid', async (ctx, next) => {
+      ctx.body = await TodoList.findByIdAndDelete(Number(ctx.params.lid));
     });

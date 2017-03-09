@@ -32,6 +32,7 @@ app.use(async (ctx, next) => {
   }
 });
 
+
 // DB schema setting
 mongoose.connect('mongodb://localhost/test');
 const Counter = mongoose.model('Counter', new mongoose.Schema({
@@ -96,8 +97,10 @@ mongoose.model('TodoList', TodoListSchema);
 mongoose.model('Todo', TodoSchema);
 
 // set api
-const todoListRouter = todoListApi(mongoose.model('TodoList'));
-const todoRouter = todoApi(mongoose.model('Todo'), todoListRouter);
+const TodoList = mongoose.model('TodoList');
+const Todo = mongoose.model('Todo');
+const todoListRouter = todoListApi(TodoList);
+const todoRouter = todoApi(Todo);
 const api = new Router({ prefix: '/api' }) // merge apis
   .use('', todoListRouter.routes(), todoListRouter.allowedMethods())
   .use('todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods());
@@ -107,4 +110,4 @@ app
   .use(logger())
   .use(api.routes())
   .use(api.allowedMethods())
-  .listen(3000);
+  .listen(process.env.PORT || 3000);
