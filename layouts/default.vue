@@ -1,52 +1,56 @@
 <template>
-  <div>
+  <div class="wrapper">
+    <custom-header/>
     <nuxt/>
-    <my-footer/>
   </div>
 </template>
 
 <script>
-import MyFooter from '~components/Footer.vue'
-
+import CustomHeader from '~components/header.vue';
 export default {
-  components: {
-    MyFooter
-  }
-}
+  components: { CustomHeader },
+};
 </script>
 
 <style>
-.container
-{
-  margin: 0;
-  width: 100%;
-  padding: 100px 0;
-  text-align: center;
+@font-face {
+  font-family: 'icomoon';
+  src:  url('~assets/font/icomoon/icomoon.eot?m78wji');
+  src:  url('~assets/font/icomoon/icomoon.eot?m78wji#iefix') format('embedded-opentype'),
+    url('~assets/font/icomoon/icomoon.ttf?m78wji') format('truetype'),
+    url('~assets/font/icomoon/icomoon.woff?m78wji') format('woff'),
+    url('~assets/font/icomoon/icomoon.svg?m78wji#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.button, .button:visited
-{
-  display: inline-block;
-  color: #3B8070;
-  letter-spacing: 1px;
-  background-color: #fff;
-  border: 2px solid #3B8070;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 15px 45px;
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.button:hover, .button:focus
-{
-  color: #fff;
-  background-color: #3B8070;
+.icon-search:before {
+  content: "\e900";
+}
+.icon-bookmark:before {
+  content: "\e901";
+}
+.icon-cross:before {
+  content: "\e902";
+}
+.icon-plus:before {
+  content: "\e903";
 }
 
-.title
-{
-  color: #505153;
-  font-weight: 300;
-  font-size: 2.5em;
-  margin: 0;
-}
+
 </style>

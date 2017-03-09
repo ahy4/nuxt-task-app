@@ -14,6 +14,12 @@
   "dependencies": {
     "cross-env": "^3.1.4",
     "koa": "^2.0.0",
+    "koa-bodyparser": "^4.1.0",
+    "koa-logger": "^2.0.1",
+    "koa-router": "^7.0.1",
+    "koa-router2": "^1.0.0",
+    "mongoose": "^4.8.6",
+    "mongoose-auto-increment": "^5.0.1",
     "nuxt": "latest"
   },
   "devDependencies": {
