@@ -7,6 +7,7 @@ const Nuxt = require('nuxt');
 const mongoose = require('mongoose');
 const todoListApi = require('./apis/todo-list');
 const todoApi = require('./apis/todo-list');
+const listOverviewApi = require('./apis/todo-list-overview');
 
 const config = require('./nuxt.config.js');
 config.dev = !(app.env === 'production');
@@ -31,7 +32,6 @@ app.use(async (ctx, next) => {
     await nuxt.render(ctx.req, ctx.res);
   }
 });
-
 
 // DB schema setting
 mongoose.connect('mongodb://localhost/test');
@@ -70,11 +70,11 @@ const TodoSchema = new mongoose.Schema({
     required: true
   },
   createdAt: {
-    type: String,
+    type: Date,
     required: true
   },
   deadline: {
-    type: String,
+    type: Date,
     required: true
   },
   completed: {
@@ -101,9 +101,11 @@ const TodoList = mongoose.model('TodoList');
 const Todo = mongoose.model('Todo');
 const todoListRouter = todoListApi(TodoList);
 const todoRouter = todoApi(Todo);
+const listOverviewRouter = listOverviewApi(TodoList, Todo);
 const api = new Router({ prefix: '/api' }) // merge apis
   .use('', todoListRouter.routes(), todoListRouter.allowedMethods())
-  .use('todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods());
+  .use('todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods())
+  .use('', listOverviewRouter.routes(), listOverviewRouter.allowedMethods());
 
 app
   .use(bodyparser())
