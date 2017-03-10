@@ -15,7 +15,7 @@ module.exports = (TodoList, Todo) =>
           todos
         };
       }));
-      console.log(lists);
+      // console.log(lists);
       const result = lists.map((list) => {
         // console.log('list:', list);
         const allCount = list.todos.length;
@@ -25,21 +25,21 @@ module.exports = (TodoList, Todo) =>
           data.latestUpdate = Number.POSITIVE_INFINITY;
         } else {
           data.hasChild = true;
-          data.completedCount = list.todos.filter(({completedCount}) => completedCount).length;
+          data.completedCount = list.todos.filter(({completed}) => completed).length;
           data.latestUpdate = list.todos.reduce((todoA, todoB) => Math.max(todoA.createdAt, todoB.createdAt), {createdAt: 0});
           const now = +new Date();
           data.nearestDeadline = list.todos
-            .map((todo) => todo.deadLine || 1) // because deadline is optional
-            .reduce((todoA, todoB) => {
-              return Math.abs(todoA.deadline - now) < Math.abs(todoB.deadline - now) ? todoA.deadline : todoB.deadline;
-            });
+            .map((todo) => (todo && todo.deadline) || 1) // because deadline is optional
+            .reduce((deadlineA, deadlineB) => {
+              return Math.abs(deadlineA - now) < Math.abs(deadlineB - now) ? deadlineA : deadlineB;
+            }, 1);
         }
         return data;
       }).sort((a, b) => b.latestUpdate - a.latestUpdate).map((o) => {
         delete o.latestUpdate;
         return o;
       });
-      console.log(result);
+      // console.log(result);
       ctx.body = JSON.stringify(result);
     });
 
