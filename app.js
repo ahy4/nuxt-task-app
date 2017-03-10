@@ -5,8 +5,9 @@ const bodyparser = require('koa-bodyparser');
 const app = new Koa();
 const Nuxt = require('nuxt');
 const mongoose = require('mongoose');
+const dbConfig = require('./apis/db-config');
 const todoListApi = require('./apis/todo-list');
-const todoApi = require('./apis/todo-list');
+const todoApi = require('./apis/todo');
 const listOverviewApi = require('./apis/todo-list-overview');
 
 const config = require('./nuxt.config.js');
@@ -34,54 +35,13 @@ app.use(async (ctx, next) => {
 });
 
 // DB schema setting
-mongoose.connect('mongodb://localhost/test');
-const Counter = mongoose.model('Counter', new mongoose.Schema({
-  _id: {
-    type: String,
-    required: true
-  },
-  seq: {
-    type: Number,
-    default: 0
-  }
-}));
+mongoose.connect(dbConfig.url);
+const Counter = mongoose.model('Counter', new mongoose.Schema(dbConfig.schema.Counter));
 new Counter({_id: 'TodoList'}).save();
 new Counter({_id: 'Todo'}).save();
 
-const TodoListSchema = new mongoose.Schema({
-  _id: {
-    type: Number
-  },
-  name: {
-    type: String,
-    required: true
-  }
-});
-const TodoSchema = new mongoose.Schema({
-  _id: {
-    type: Number
-  },
-  lid: {
-    type: Number,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    required: true
-  },
-  deadline: {
-    type: Date,
-    required: true
-  },
-  completed: {
-    type: Boolean,
-    required: true
-  }
-});
+const TodoListSchema = new mongoose.Schema(dbConfig.schema.TodoList);
+const TodoSchema = new mongoose.Schema(dbConfig.schema.Todo);
 
 const autoIncrement = modelName => function (next) {
   Counter.findByIdAndUpdate({ _id: modelName }, { $inc: { seq: 1 } }, (error, counter) => {
@@ -104,8 +64,11 @@ const todoRouter = todoApi(Todo);
 const listOverviewRouter = listOverviewApi(TodoList, Todo);
 const api = new Router({ prefix: '/api' }) // merge apis
   .use('', todoListRouter.routes(), todoListRouter.allowedMethods())
-  .use('todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods())
+  .use('/todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods())
   .use('', listOverviewRouter.routes(), listOverviewRouter.allowedMethods());
+
+// console.log(api);
+// console.log(todoRouter);
 
 app
   .use(bodyparser())

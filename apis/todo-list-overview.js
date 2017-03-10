@@ -28,9 +28,11 @@ module.exports = (TodoList, Todo) =>
           data.completedCount = list.todos.filter(({completedCount}) => completedCount).length;
           data.latestUpdate = list.todos.reduce((todoA, todoB) => Math.max(todoA.createdAt, todoB.createdAt), {createdAt: 0});
           const now = +new Date();
-          data.nearestDeadline = list.todos.reduce((todoA, todoB) => {
-            return Math.abs(todoA.deadline - now) < Math.abs(todoB.deadline - now) ? todoA.deadline : todoB.deadline;
-          });
+          data.nearestDeadline = list.todos
+            .map((todo) => todo.deadLine || 1) // because deadline is optional
+            .reduce((todoA, todoB) => {
+              return Math.abs(todoA.deadline - now) < Math.abs(todoB.deadline - now) ? todoA.deadline : todoB.deadline;
+            });
         }
         return data;
       }).sort((a, b) => b.latestUpdate - a.latestUpdate).map((o) => {
