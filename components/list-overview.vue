@@ -21,17 +21,15 @@ export default {
       required: true
     },
     count: {
-      type: Number,
-      required: true
+      type: Number
     },
     checkCount: {
-      type: Number,
-      required: true
+      type: Number
     },
     deadline: {
       type: String,
-      required: false,
-      default: _ => ''
+      // required: false,
+      // default: _ => ''
     }
   },
   methods: {

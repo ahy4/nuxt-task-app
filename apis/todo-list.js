@@ -9,6 +9,7 @@ module.exports = TodoList =>
     })
 
     .post('/', async (ctx, next) => {
+      console.log(ctx.request.body);
       ctx.body = await new TodoList(ctx.request.body).save();
     })
 

@@ -38,17 +38,14 @@ export default {
   async fetch({ store, params }) {
     const {data} = await axios.get('http://localhost:3000/api/todo-list-overview');
     store.commit('todo-lists/update', data);
-    // return axios
-    //   .get('http://localhost:3000/api/todo-list-overview')
-    //   .then(({data}) => {
-    //     console.log('data:', data);
-    //     store.commit('todo-lists/update', data);
-    //   });
   },
   methods: {
-    createList(evt) {
-      // this.lists.push({name: 'tekitou name3', count: 7, checkCount: 3, deadline: 'deadline time'});
-      this.$store.commit('todo-lists/add', {name: 'tekitou name3', count: 7, checkCount: 3, deadline: 'deadline time'});
+    async createList(evt) {
+      this.$store.commit('todo-lists/add', {
+        name: this.name,
+        hasChild: false
+      });
+      console.log(await axios.post('http://localhost:3000/api/todo-lists', { name: this.name }));
     }
   }
 };
