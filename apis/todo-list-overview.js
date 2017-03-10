@@ -18,22 +18,24 @@ module.exports = (TodoList, Todo) =>
       // console.log(lists);
       const result = lists.map((list) => {
         // console.log('list:', list);
-        const allCount = list.todos.length;
-        const data = { allCount };
-        if (allCount === 0) {
+        const name = list.name;
+        const count = list.todos.length;
+        const data = { name, count };
+        if (count === 0) {
           data.hasChild = false;
           data.latestUpdate = Number.POSITIVE_INFINITY;
         } else {
           data.hasChild = true;
-          data.completedCount = list.todos.filter(({completed}) => completed).length;
+          data.checkedCount = list.todos.filter(({completed}) => completed).length;
           data.latestUpdate = list.todos.reduce((todoA, todoB) => Math.max(todoA.createdAt, todoB.createdAt), {createdAt: 0});
           const now = +new Date();
-          data.nearestDeadline = list.todos
+          data.deadline = list.todos
             .map((todo) => (todo && todo.deadline) || 1) // because deadline is optional
             .reduce((deadlineA, deadlineB) => {
               return Math.abs(deadlineA - now) < Math.abs(deadlineB - now) ? deadlineA : deadlineB;
             }, 1);
         }
+        // console.log('data:', data);
         return data;
       }).sort((a, b) => b.latestUpdate - a.latestUpdate).map((o) => {
         delete o.latestUpdate;
