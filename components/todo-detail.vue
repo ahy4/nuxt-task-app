@@ -23,12 +23,12 @@ export default {
       required: true
     },
     deadline: {
-      type: String,
+      type: Date,
       required: false,
       default: _ => ''
     },
     createdAt: {
-      type: String,
+      type: Date,
       required: true
     },
     completed: {

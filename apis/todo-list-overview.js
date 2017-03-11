@@ -11,6 +11,7 @@ module.exports = (TodoList, Todo) =>
         const lid = todoList._id;
         const todos = await Todo.find({lid});
         return {
+          lid: todoList._id,
           name: todoList.name,
           todos
         };
@@ -18,9 +19,8 @@ module.exports = (TodoList, Todo) =>
       // console.log(lists);
       const result = lists.map((list) => {
         // console.log('list:', list);
-        const name = list.name;
-        const count = list.todos.length;
-        const data = { name, count };
+        const { lid, name, count } = list;
+        const data = { lid, name, count };
         if (count === 0) {
           data.hasChild = false;
           data.latestUpdate = Number.POSITIVE_INFINITY;

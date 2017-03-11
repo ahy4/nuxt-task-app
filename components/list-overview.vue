@@ -1,5 +1,6 @@
 <template>
-  <nuxt-link tag="section" to="/test" class="list-overview">
+  <nuxt-link tag="section" :to="`/list/${this.lid}`" class="list-overview">
+    lid: {{lid}}
     <div class="list-name">{{name}}</div>
     <div class="list-count">{{count}}</div>
     <div class="list-check-count">{{checkCount}}</div>
@@ -16,6 +17,10 @@
 <script>
 export default {
   props: {
+    lid: {
+      type: Number,
+      required: true
+    },
     name: {
       type: String,
       required: true

@@ -5,7 +5,7 @@
   "author": "ahyahya <mrfool38@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "nodemon -w app.js -w nuxt.config.js -w apis app.js",
+    "dev": "nodemon -w app.js -w nuxt.config.js -w apis -w store -w config app.js",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production node app.js",
     "precommit": "npm run lint",
@@ -23,7 +23,8 @@
     "mongoose": "^4.8.6",
     "mongoose-auto-increment": "^5.0.1",
     "nuxt": "latest",
-    "superagent": "^3.5.0"
+    "superagent": "^3.5.0",
+    "validate.js": "^0.11.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
