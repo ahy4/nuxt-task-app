@@ -21,7 +21,7 @@ module.exports = (TodoList, Todo) =>
         // console.log('list:', list);
         const { lid, name } = list;
         const count = list.todos.length;
-        const data = { lid, name, count };
+        const data = { _id: lid, name, count };
         if (count === 0) {
           data.hasChild = false;
           data.latestUpdate = Number.POSITIVE_INFINITY;

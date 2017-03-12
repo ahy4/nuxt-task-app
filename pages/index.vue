@@ -8,10 +8,11 @@
     <div>{{JSON.stringify($store.state['todo-lists'].lists)}}</div>
     <list-overview
       v-for="list in $store.state['todo-lists'].lists"
-      :lid="list.lid"
+      :lid="list._id"
       :name="list.name"
       :count="list.count"
       :checkCount="list.checkCount"
+      :hasChild="list.hasChild"
       :deadline="list.deadline"></list-overview>
   </main>
 </template>
@@ -33,9 +34,8 @@ export default {
     }
   },
   data: ({store}) => ({ name: '' }),
-  async fetch({ store, params }) {
-    const {data} = await axios.get('http://localhost:3000/api/todo-list-overview');
-    store.commit('todo-lists/update', data);
+  async fetch({store}) {
+    await store.dispatch('todo-lists/initialize');
   },
   methods: {
     async createList(evt) {
@@ -43,12 +43,7 @@ export default {
       let err = validation(sendData, 'TodoList');
       if (!err) {
         try {
-          let {data} = await axios.post('http://localhost:3000/api/todo-lists', sendData);
-          data = Object.assign({
-            count: 0,
-            hasChild: false
-          }, data);
-          this.$store.commit('todo-lists/add', data);
+          this.$store.dispatch('todo-lists/add', sendData);
         } catch (e) { err = e; }
       }
       if (err) console.log('err:', err);
