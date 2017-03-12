@@ -23,17 +23,14 @@
 
 <script>
 import ListOverview from '~components/list-overview.vue';
-import axios from 'axios';
 import validation from '~assets/js/api-validation.js';
 
 export default {
   components: { ListOverview },
-  computed: {
-    lists() {
-      return this.$store.state['todo-lists'].lists;
-    }
-  },
-  data: ({store}) => ({ name: '' }),
+  // computed: {
+  //   lists: _ => this.$store.state['todo-lists'].lists
+  // },
+  data: _ => ({ name: '' }),
   async fetch({store}) {
     await store.dispatch('todo-lists/initialize');
   },

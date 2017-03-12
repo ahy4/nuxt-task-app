@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h2>リスト名：{{$store.state.todos.listName}}</h2>
     <div class="create-todo">
       <div class="create-todo-left">
         <input type="text" placeholder="ToDo名" v-model="name">
@@ -8,13 +9,13 @@
       <div class="create-todo-right">
         <button @click="createTodo">ついか</button>
       </div>
-      <todo-detail
-        v-for="todo in $store.state.todos.todos"
-        :name="todo.name"
-        :deadline="todo.deadline"
-        :createdAt="todo.createdAt"
-        :completed="todo.completed"></todo-detail>
     </div>
+    <todo-detail
+      v-for="todo in $store.state.todos.todos"
+      :name="todo.name"
+      :deadline="todo.deadline"
+      :createdAt="todo.createdAt"
+      :completed="todo.completed"></todo-detail>
   </main>
 </template>
 
@@ -30,10 +31,12 @@ export default {
     deadline: ''
   }),
   async fetch({store, params}) {
-    const listRes = await axios.get(`http://localhost:3000/api/todo-lists/${params.lid}`);
-    store.commit('todos/listName', listRes.data);
-    const {data} = await axios.get(`http://localhost:3000/api/todo-lists/${params.lid}/todos`);
-    store.commit('todos/update', data);
+    await store.dispatch('todos/initialize', params.lid);
+    // await store.dispatch('todos/update', params.lid);
+    // const listRes = await axios.get(`http://localhost:3000/api/todo-lists/${params.lid}`);
+    // store.commit('todos/listName', listRes.data);
+    // const {data} = await axios.get(`http://localhost:3000/api/todo-lists/${params.lid}/todos`);
+    // store.commit('todos/update', data);
   },
   methods: {
     async createTodo(e) {
