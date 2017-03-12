@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 const dbConfig = require('./apis/db-config');
 const todoListApi = require('./apis/todo-list');
 const todoApi = require('./apis/todo');
-const listOverviewApi = require('./apis/todo-list-overview');
 
 const config = require('./nuxt.config.js');
 config.dev = !(app.env === 'production');
@@ -59,13 +58,12 @@ mongoose.model('Todo', TodoSchema);
 // set api
 const TodoList = mongoose.model('TodoList');
 const Todo = mongoose.model('Todo');
-const todoListRouter = todoListApi(TodoList);
-const todoRouter = todoApi(Todo);
-const listOverviewRouter = listOverviewApi(TodoList, Todo);
+const Collections = { TodoList, Todo };
+const todoListRouter = todoListApi(Collections);
+const todoRouter = todoApi(Collections);
 const api = new Router({ prefix: '/api' }) // merge apis
   .use('', todoListRouter.routes(), todoListRouter.allowedMethods())
-  .use('/todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods())
-  .use('', listOverviewRouter.routes(), listOverviewRouter.allowedMethods());
+  .use('/todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods());
 
 // console.log(api);
 // console.log(todoRouter);

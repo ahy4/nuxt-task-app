@@ -15,7 +15,7 @@ export const mutations = {
 
 export const actions = {
   async initialize({commit}) {
-    const {data} = await axios.get('http://localhost:3000/api/todo-list-overview');
+    const {data} = await axios.get('http://localhost:3000/api/todo-lists/overview');
     commit('initialize', data);
   },
   async add({commit}, diff) {

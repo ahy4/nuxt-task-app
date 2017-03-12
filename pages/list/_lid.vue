@@ -35,6 +35,7 @@ export default {
   methods: {
     async createTodo(e) {
       const sendData = {
+        lid: this.$route.params.lid,
         name: this.name,
         deadline: this.deadline,
         createdAt: new Date(),
@@ -43,7 +44,11 @@ export default {
       let err = validation(sendData, 'Todo');
       if (!err) {
         try {
-          this.$store.dispatch('todos/add', sendData);
+          console.log('lid:', this.$route.params.lid, typeof this.$route.params.lid);
+          this.$store.dispatch('todos/add', {
+            diff: sendData,
+            lid: this.$route.params.lid
+          });
         } catch (e) { err = e; }
       }
       if (err) console.log('err:', err);

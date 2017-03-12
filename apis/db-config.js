@@ -8,6 +8,10 @@ module.exports = {
       name: {
         type: String,
         required: true
+      },
+      createdAt: {
+        type: Date,
+        required: true
       }
     },
     Todo: {

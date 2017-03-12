@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 
-module.exports = Todo =>
+module.exports = ({ TodoList, Todo }) =>
 
   new Router({ prefix: '/todos' })
 

@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import Promise from 'bluebird';
 
 export const state = {
   listName: '',
@@ -26,8 +25,9 @@ export const actions = {
       todos: res2.data
     });
   },
-  async add({commit}, diff) {
-    let {data} = await axios.post(`http://localhost:3000/api/todo-lists/${this.$route.params.lid}/todos`, diff);
+  async add({commit}, {diff, lid}) {
+    console.log(`http://localhost:3000/api/todo-lists/${lid}/todos`);
+    let {data} = await axios.post(`http://localhost:3000/api/todo-lists/${lid}/todos`, diff);
     commit('add', data);
   }
 };

@@ -27,9 +27,6 @@ import validation from '~assets/js/api-validation.js';
 
 export default {
   components: { ListOverview },
-  // computed: {
-  //   lists: _ => this.$store.state['todo-lists'].lists
-  // },
   data: _ => ({ name: '' }),
   async fetch({store}) {
     await store.dispatch('todo-lists/initialize');
@@ -42,6 +39,7 @@ export default {
         try {
           this.$store.dispatch('todo-lists/add', sendData);
         } catch (e) { err = e; }
+        this.name = '';
       }
       if (err) console.log('err:', err);
     }
