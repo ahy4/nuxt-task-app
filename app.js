@@ -63,7 +63,7 @@ const todoListRouter = todoListApi(Collections);
 const todoRouter = todoApi(Collections);
 const api = new Router({ prefix: '/api' }) // merge apis
   .use('', todoListRouter.routes(), todoListRouter.allowedMethods())
-  .use('/todo-lists/:lid', todoRouter.routes(), todoRouter.allowedMethods());
+  .use('', todoRouter.routes(), todoRouter.allowedMethods());
 
 // console.log(api);
 // console.log(todoRouter);
