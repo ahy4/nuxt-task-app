@@ -6,14 +6,9 @@ export const state = {
 
 export const mutations = {
   initialize(state, data) {
-    console.log(state);
-    // console.log('update:', data);
     state.lists = data;
-    console.log(state);
   },
   add(state, data) {
-    console.log(state);
-    console.log('add:', data);
     state.lists.push(data);
   }
 };

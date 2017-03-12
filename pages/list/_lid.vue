@@ -21,7 +21,6 @@
 
 <script>
 import TodoDetail from '~components/todo-detail';
-import axios from 'axios';
 import validation from '~assets/js/api-validation';
 
 export default {
@@ -32,11 +31,6 @@ export default {
   }),
   async fetch({store, params}) {
     await store.dispatch('todos/initialize', params.lid);
-    // await store.dispatch('todos/update', params.lid);
-    // const listRes = await axios.get(`http://localhost:3000/api/todo-lists/${params.lid}`);
-    // store.commit('todos/listName', listRes.data);
-    // const {data} = await axios.get(`http://localhost:3000/api/todo-lists/${params.lid}/todos`);
-    // store.commit('todos/update', data);
   },
   methods: {
     async createTodo(e) {
@@ -46,12 +40,10 @@ export default {
         createdAt: new Date(),
         completed: false
       };
-      console.log(this.name, this.deadline);
       let err = validation(sendData, 'Todo');
       if (!err) {
         try {
-          let {data} = await axios.post(`http://localhost:3000/api/todo-lists/${this.$route.params.lid}/todos`, sendData);
-          this.$store.commit('todos/add', data);
+          this.$store.dispatch('todos/add', sendData);
         } catch (e) { err = e; }
       }
       if (err) console.log('err:', err);

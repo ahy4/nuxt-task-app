@@ -12,8 +12,6 @@ export const mutations = {
     state.todos = todos;
   },
   add(state, data) {
-    console.log(state);
-    console.log('add:', data);
     state.todos.push(data);
   }
 };
@@ -27,5 +25,9 @@ export const actions = {
       listName: res1.data.name,
       todos: res2.data
     });
+  },
+  async add({commit}, diff) {
+    let {data} = await axios.post(`http://localhost:3000/api/todo-lists/${this.$route.params.lid}/todos`, diff);
+    commit('add', data);
   }
 };
