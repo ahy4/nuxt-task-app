@@ -19,7 +19,8 @@ module.exports = (TodoList, Todo) =>
       // console.log(lists);
       const result = lists.map((list) => {
         // console.log('list:', list);
-        const { lid, name, count } = list;
+        const { lid, name } = list;
+        const count = list.todos.length;
         const data = { lid, name, count };
         if (count === 0) {
           data.hasChild = false;
