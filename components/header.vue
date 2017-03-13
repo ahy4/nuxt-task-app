@@ -2,7 +2,13 @@
 
 <template>
   <header>
-    <nuxt-link tag="img" to="/" src="https://www.todo-cloud.com/images/todo-cloud-landing-page-logo@2x.png" height="50" alt=""/>
+    <nuxt-link to="/" tag="div"><img src="~assets/img/icon.png" alt=""/></nuxt-link>
     <nuxt-link to="/search">Search</nuxt-link>
   </header>
 </template>
+
+<style scoped>
+header {
+  /*background: #120d0d;*/
+}
+</style>

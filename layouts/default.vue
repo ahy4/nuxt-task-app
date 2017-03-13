@@ -13,6 +13,11 @@ export default {
 </script>
 
 <style>
+.wrapper {
+  background: url('~assets/img/bg.png');
+  min-height: 100vh;
+}
+
 @font-face {
   font-family: 'icomoon';
   src:  url('~assets/font/icomoon/icomoon.eot?m78wji');

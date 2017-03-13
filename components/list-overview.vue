@@ -1,14 +1,12 @@
 <template>
   <nuxt-link tag="section" :to="`/list/${this.lid}`" class="list-overview">
     <div class="has-child" v-if="hasChild">
-      lid: {{lid}}
       <div class="list-name">{{name}}</div>
       <div class="list-count">{{count}}</div>
       <div class="list-check-count">{{checkCount}}</div>
       <div class="list-deadline">{{deadline}}</div>
     </div>
     <div class="has-no-child" v-else>
-      lid: {{lid}}
       <div class="list-name">{{name}}</div>
     </div>
   </nuxt-link>
@@ -17,6 +15,10 @@
 <style scoped>
 .list-overview {
   cursor: pointer;
+  color: white;
+  padding: 20px 40px;
+  border-top: 1px solid #fff;
+  background: rgba(254,245,228,0.1);
 }
 </style>
 
@@ -25,10 +27,6 @@ export default {
   props: {
     hasChild: {
       type: Boolean,
-      required: true
-    },
-    lid: {
-      type: Number,
       required: true
     },
     name: {

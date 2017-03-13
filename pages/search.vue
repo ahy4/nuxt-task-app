@@ -2,13 +2,11 @@
   <main>
     <div class="search-box">
       <input type="text" v-model="query">
-      <!-- asdf{{String(name)}} -->
       <button @click="search"></button>
     </div>
-    <div>{{JSON.stringify($store.state.search.todos)}}</div>
+    <!-- <div>{{JSON.stringify($store.state.search.todos)}}</div> -->
     <div class="search-todos">
       <p>{{$store.state.search.todos.length}}件のTODOが見つかりました</p>
-      <!-- name,listname,createdAt,deadline (created昇順) -->
       <todo-search
         v-for="list in $store.state.search.todos"
         :name="list.name"
@@ -19,7 +17,6 @@
     <div>{{JSON.stringify($store.state.search.lists)}}</div>
     <div class="search-lists">
       <p>{{$store.state.search.lists.length}}件のTODOリストが見つかりました</p>
-      <!-- name,createdAt -->
       <todo-list-search
         v-for="list in $store.state.search.todos"
         :name="list.name"
