@@ -44,6 +44,6 @@ export default {
     async search(evt) {
       this.$store.dispatch('search/exec', this.query);
     }
-  }// 明日はこのstore,actionを整備するところから。次にコンポーネントの整備。todosのトグルの送信。それが終わったらデザインにいける
+  }// 次にコンポーネントの整備。todosのトグルの送信。それが終わったらデザインにいける
 };
 </script>

@@ -8,7 +8,11 @@ module.exports = ({ TodoList, Todo }) =>
 
       .get('/', async (ctx, next) => {
         const q = ctx.query.q || '';
-        ctx.body = await Todo.find({ name: new RegExp(q) });
+        const todos = await Todo.find({ name: new RegExp(q) });
+        ctx.body = await Promise.all(todos.map(async todo => {
+          const listName = (await TodoList.findById(todo.lid)).name;
+          return Object.assign({ listName }, todo._doc);
+        }));
       })
 
       .routes())
