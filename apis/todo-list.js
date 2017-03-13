@@ -5,7 +5,8 @@ module.exports = ({ TodoList, Todo }) =>
   new Router({ prefix: '/todo-lists' })
 
     .get('/', async (ctx, next) => {
-      ctx.body = await TodoList.find();
+      const q = ctx.query.q || '';
+      ctx.body = await TodoList.find({ name: new RegExp(q) });
     })
 
     .post('/', async (ctx, next) => {
@@ -15,11 +16,6 @@ module.exports = ({ TodoList, Todo }) =>
     })
 
     .get('/overview', getOverview({ TodoList, Todo }))
-
-    .get('/search', async (ctx, next) => {
-      const q = ctx.query.q || '';
-      ctx.body = await TodoList.find({ name: new RegExp(q) });
-    })
 
     .get('/:lid', async (ctx, next) => {
       ctx.body = await TodoList.findById(Number(ctx.params.lid));
