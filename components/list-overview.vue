@@ -42,7 +42,7 @@ export default {
       type: Number
     },
     deadline: {
-      type: String,
+      type: Date,
       // required: false,
       // default: _ => ''
     }

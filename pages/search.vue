@@ -5,26 +5,25 @@
       <!-- asdf{{String(name)}} -->
       <button @click="search"></button>
     </div>
-    <div>{{JSON.stringify($store.state.search.lists)}}</div>
+    <div>{{JSON.stringify($store.state.search.todos)}}</div>
     <div class="search-todos">
-<!--       <todo-search
+      <p>{{$store.state.search.todos.length}}件のTODOが見つかりました</p>
+      <!-- name,listname,createdAt,deadline (created昇順) -->
+      <todo-search
         v-for="list in $store.state.search.todos"
-        :lid="list._id"
         :name="list.name"
-        :count="list.count"
-        :checkCount="list.checkCount"
-        :hasChild="list.hasChild"
-        :deadline="list.deadline"></todo-search> -->
+        :listName="list.listName"
+        :createdAt="list.createdAt"
+        :deadline="list.deadline"></todo-search>
     </div>
+    <div>{{JSON.stringify($store.state.search.lists)}}</div>
     <div class="search-lists">
-<!--       <todo-list-search
+      <p>{{$store.state.search.lists.length}}件のTODOリストが見つかりました</p>
+      <!-- name,createdAt -->
+      <todo-list-search
         v-for="list in $store.state.search.todos"
-        :lid="list._id"
         :name="list.name"
-        :count="list.count"
-        :checkCount="list.checkCount"
-        :hasChild="list.hasChild"
-        :deadline="list.deadline"></todo-list-search> -->
+        :createdAt="list.createdAt"></todo-list-search>
     </div>
   </main>
 </template>
@@ -34,8 +33,11 @@
 </style>
 
 <script>
+import TodoSearch from '~components/todo-search.vue';
+import TodoListSearch from '~components/todo-list-search.vue';
+
 export default {
-  components: {},
+  components: { TodoSearch, TodoListSearch },
   data: _ => ({ query: '' }),
   async fetch({store}) {
     await store.dispatch('search/exec', '');
