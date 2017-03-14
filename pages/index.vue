@@ -4,14 +4,16 @@
     <div class="create-list">
       <input type="text" placeholder="create new TODO LIST" v-model="name">
       <button @click="createList" class="icon-plus"></button>
+
     </div>
     <list-overview
       v-for="list in $store.state['todo-lists'].lists"
+      :lid="list._id"
       :name="list.name"
       :count="list.count"
-      :checkCount="list.checkCount"
+      :checkedCount="list.checkedCount"
       :hasChild="list.hasChild"
-      :deadline="list.deadline"></list-overview>
+      :deadline="new Date(list.deadline)"></list-overview>
   </main>
 </template>
 
@@ -19,26 +21,29 @@
 main {
   margin: 0 auto;
   width: 960px;
+  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
 }
 .create-list {
-  background: transparent;
-  border-top: 1px solid white;
   padding: 40px 70px;
   display: flex;
   justify-content: center;
 }
 .create-list input[type="text"] {
   display: block;
-  background: rgb(255,235,225);
+  background: rgba(255,255,255, 0.07);
   border: none;
   font-size: 26px;
   width: 600px;
   height: 60px;
   line-height: 60px;
   padding: 0 30px;
+  color: white;
+  box-sizing: border-box;
+  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
+  border-bottom: 1px dashed #ccc;
 }
 .create-list button {
-  background: #FC6E4F;
+  background: rgba(252,110,79,0.6);
   height: 60px;
   border: none;
   color: white;
@@ -48,7 +53,8 @@ main {
 }
 .spacer {
   height: 70px;
-  background: rgba(254,245,228,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+  background: rgba(254,245,228,0.02);
 }
 </style>
 
