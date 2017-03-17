@@ -5,8 +5,8 @@
     </div>
     <div class="todo-middle">
       <div>
-        <div class="todo-createdAt">{{parsedCreatedAt}}</div>
-        <div class="todo-deadline">{{parsedDeadline}}</div>
+        <div class="todo-createdAt">作成日: {{parsedCreatedAt}}</div>
+        <div class="todo-deadline">〆切: {{parsedDeadline}}</div>
       </div>
     </div>
     <div class="todo-right">
@@ -31,16 +31,18 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 30px;
+  padding-right: 50px;
 }
 .todo-middle {
   display: flex;
-  width: 180px;
+  width: 230px;
+  color: #ccc;
   align-content: center;
 }
 .todo-right {
   display: flex;
   align-items: center;
+  padding-left: 50px;
 }
 .todo-right button {
   height: 48px;
@@ -63,7 +65,7 @@ export default {
       return dateFormat(this.deadline);
     },
     parsedCreatedAt() {
-      return dateFormat(this.deadline);
+      return dateFormat(this.createdAt);
     }
   },
   props: {

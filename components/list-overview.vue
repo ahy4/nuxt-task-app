@@ -42,6 +42,7 @@
   padding-left: 50px;
   display: flex;
   align-items: center;
+  color: #ccc;
 }
 </style>
 

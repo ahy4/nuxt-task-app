@@ -3,7 +3,6 @@
     <div class="spacer">
       {{$store.state.todos.listName}}
     </div>
-
     <div class="create-todo">
       <div class="create-todo-left">
         <input type="text" placeholder="ToDo名" v-model="name">
