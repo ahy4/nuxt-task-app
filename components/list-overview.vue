@@ -35,11 +35,11 @@
   align-items: center;
   justify-content: flex-end;
   font-size: 26px;
-  padding-right: 30px;
+  padding-right: 50px;
   border-right: 1px solid rgba(160,160,160,0.3);
 }
 .list-right {
-  padding-left: 30px;
+  padding-left: 50px;
   display: flex;
   align-items: center;
 }

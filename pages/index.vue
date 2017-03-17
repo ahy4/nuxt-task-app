@@ -2,9 +2,10 @@
   <main>
     <div class="spacer"></div>
     <div class="create-list">
-      <input type="text" placeholder="create new TODO LIST" v-model="name">
-      <button @click="createList" class="icon-plus"></button>
-
+      <div class="wrap">
+        <input type="text" placeholder="create new TODO LIST" v-model="name">
+        <button @click="createList" class="icon-plus"></button>
+      </div>
     </div>
     <list-overview
       v-for="list in $store.state['todo-lists'].lists"
@@ -24,23 +25,25 @@ main {
   font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
 }
 .create-list {
-  padding: 40px 70px;
+  padding: 40px 100px;
+}
+.wrap {
   display: flex;
   justify-content: center;
+  border-bottom: 1px dashed #ccc;
 }
 .create-list input[type="text"] {
   display: block;
   background: rgba(255,255,255, 0.07);
   border: none;
   font-size: 26px;
-  width: 600px;
+  width: 100%;
   height: 60px;
   line-height: 60px;
   padding: 0 30px;
   color: white;
   box-sizing: border-box;
   font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
-  border-bottom: 1px dashed #ccc;
 }
 .create-list button {
   background: rgba(252,110,79,0.6);
@@ -52,7 +55,7 @@ main {
   padding: 0 12px;
 }
 .spacer {
-  height: 70px;
+  height: 50px;
   border-bottom: 1px solid rgba(255,255,255,0.7);
   background: rgba(254,245,228,0.02);
 }

@@ -1,33 +1,89 @@
 <template>
   <main>
-    <h2>リスト名：{{$store.state.todos.listName}}</h2>
+    <div class="spacer"></div>
+
+    <!-- <h2>リスト名：{{$store.state.todos.listName}}</h2> -->
     <div class="create-todo">
       <div class="create-todo-left">
         <input type="text" placeholder="ToDo名" v-model="name">
-        <input type="text" placeholder="期限" v-model="deadline">
+        <date-picker :date="date"></date-picker>
       </div>
       <div class="create-todo-right">
-        <button @click="createTodo">ついか</button>
+        <button @click="createTodo" class="icon-plus"></button>
       </div>
     </div>
     <todo-detail
       v-for="todo in $store.state.todos.todos"
       :name="todo.name"
-      :deadline="todo.deadline"
-      :createdAt="todo.createdAt"
-      :completed="todo.completed"></todo-detail>
+      :deadline="new Date(todo.deadline)"
+      :createdAt="new Date(todo.createdAt)"
+      :completed="todo.completed === true"></todo-detail>
   </main>
 </template>
 
+<style scoped>
+main {
+  margin: 0 auto;
+  width: 960px;
+  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
+}
+.create-todo {
+  padding: 40px 100px;
+  display: flex;
+  justify-content: space-around;
+}
+.create-todo-left {
+  width: 100%;
+}
+.create-todo-right {
+  align-items: center;
+  display: flex;
+  padding-left: 20px;
+}
+.create-todo input[type="text"] {
+  display: block;
+  background: rgba(255,255,255, 0.07);
+  border: none;
+  font-size: 18px;
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 30px;
+  color: white;
+  box-sizing: border-box;
+  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
+  border-bottom: 1px dashed rgba(0,0,0,0.2);
+}
+.create-todo button {
+  background: rgba(252,110,79,0.6);
+  height: 60px;
+  border: none;
+  color: white;
+  font-size: 40px;
+  line-height: 60px;
+  padding: 0 12px;
+}
+.spacer {
+  height: 50px;
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+  background: rgba(254,245,228,0.02);
+}
+
+</style>
+
 <script>
 import TodoDetail from '~components/todo-detail';
+import DatePicker from 'vue-datepicker/vue-datepicker-es6.vue';
 import validation from '~assets/js/api-validation';
 
 export default {
-  components: { TodoDetail },
+  components: { TodoDetail, DatePicker },
   data: _ => ({
     name: '',
-    deadline: ''
+    deadline: '',
+    date: {
+      time: ''
+    }
   }),
   async fetch({store, params}) {
     await store.dispatch('todos/initialize', params.lid);
