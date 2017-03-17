@@ -1,18 +1,21 @@
 <template>
   <main>
+    <div class="spacer"></div>
     <div class="search-box">
-      <input type="text" v-model="query">
-      <button @click="search"></button>
+      <div class="wrap">
+        <input type="text" v-model="query">
+        <button @click="search" class="icon-plus"></button>
+      </div>
     </div>
-    <!-- <div>{{JSON.stringify($store.state.search.todos)}}</div> -->
     <div class="search-todos">
       <p>{{$store.state.search.todos.length}}件のTODOが見つかりました</p>
       <todo-search
-        v-for="list in $store.state.search.todos"
-        :name="list.name"
-        :listName="list.listName"
-        :createdAt="list.createdAt"
-        :deadline="list.deadline"></todo-search>
+        v-for="todo in $store.state.search.todos"
+        :lid="Number(todo.lid)"
+        :name="todo.name"
+        :listName="todo.listName"
+        :createdAt="new Date(todo.createdAt)"
+        :deadline="new Date(todo.deadline)"></todo-search>
     </div>
     <div>{{JSON.stringify($store.state.search.lists)}}</div>
     <div class="search-lists">
@@ -26,7 +29,46 @@
 </template>
 
 <style scoped>
-
+main {
+  margin: 0 auto;
+  width: 960px;
+  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
+}
+.search-box {
+  padding: 40px 100px;
+}
+.wrap {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px dashed #ccc;
+}
+.search-box input[type="text"] {
+  display: block;
+  background: rgba(255,255,255, 0.07);
+  border: none;
+  font-size: 26px;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 30px;
+  color: white;
+  box-sizing: border-box;
+  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
+}
+.search-box button {
+  background: rgba(252,110,79,0.6);
+  height: 60px;
+  border: none;
+  color: white;
+  font-size: 40px;
+  line-height: 60px;
+  padding: 0 12px;
+}
+.spacer {
+  height: 70px;
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+  background: rgba(254,245,228,0.02);
+}
 </style>
 
 <script>
@@ -45,4 +87,5 @@ export default {
     }
   }// 次にコンポーネントの整備。todosのトグルの送信。それが終わったらデザインにいける
 };
+
 </script>
