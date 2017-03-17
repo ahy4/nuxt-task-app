@@ -1,8 +1,9 @@
 <template>
   <main>
-    <div class="spacer"></div>
+    <div class="spacer">
+      {{$store.state.todos.listName}}
+    </div>
 
-    <!-- <h2>リスト名：{{$store.state.todos.listName}}</h2> -->
     <div class="create-todo">
       <div class="create-todo-left">
         <input type="text" placeholder="ToDo名" v-model="name">
@@ -64,7 +65,11 @@ main {
   padding: 0 12px;
 }
 .spacer {
-  height: 50px;
+  height: 70px;
+  line-height: 70px;
+  font-size: 30px;
+  text-align: center;
+  color: white;
   border-bottom: 1px solid rgba(255,255,255,0.7);
   background: rgba(254,245,228,0.02);
 }
@@ -80,7 +85,6 @@ export default {
   components: { TodoDetail, DatePicker },
   data: _ => ({
     name: '',
-    deadline: '',
     date: {
       time: ''
     }
@@ -90,11 +94,11 @@ export default {
   },
   methods: {
     async createTodo(e) {
+      console.log(this.date.time);
       const sendData = {
         lid: this.$route.params.lid,
         name: this.name,
-        deadline: this.deadline,
-        createdAt: new Date(),
+        deadline: +new Date(this.date.time.split`-`.join`/`),
         completed: false
       };
       let err = validation(sendData, 'Todo');

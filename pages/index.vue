@@ -55,7 +55,7 @@ main {
   padding: 0 12px;
 }
 .spacer {
-  height: 50px;
+  height: 70px;
   border-bottom: 1px solid rgba(255,255,255,0.7);
   background: rgba(254,245,228,0.02);
 }
