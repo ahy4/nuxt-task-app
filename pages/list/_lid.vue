@@ -53,7 +53,7 @@ main {
   color: white;
   box-sizing: border-box;
   font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
-  border-bottom: 1px dashed rgba(0,0,0,0.2);
+  border-bottom: 1px dashed rgba(0,0,0,0.4);
 }
 .create-todo button {
   background: rgba(252,110,79,0.6);

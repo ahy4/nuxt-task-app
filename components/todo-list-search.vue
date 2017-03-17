@@ -20,7 +20,7 @@
   justify-content: flex-start;
 }
 .todo-list-search-left {
-  width: 350px;
+  width: 400px;
   padding-right: 50px;
   display: flex;
   align-items: center;

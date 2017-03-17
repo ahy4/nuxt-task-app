@@ -8,7 +8,9 @@
       </div>
     </div>
     <div class="search-todos">
-      <p>{{$store.state.search.todos.length}}件のTODOが見つかりました</p>
+      <div class="result">
+        {{$store.state.search.todos.length}}件のTODOが見つかりました
+      </div>
       <todo-search
         v-for="todo in $store.state.search.todos"
         :lid="Number(todo.lid)"
@@ -18,9 +20,11 @@
         :deadline="new Date(todo.deadline)"></todo-search>
     </div>
     <div class="search-lists">
-      <p>{{$store.state.search.lists.length}}件のTODOリストが見つかりました</p>
+      <div class="result">
+        {{$store.state.search.lists.length}}件のTODOリストが見つかりました
+      </div>
       <todo-list-search
-        v-for="list in $store.state.search.todos"
+        v-for="list in $store.state.search.lists"
         :name="list.name"
         :createdAt="list.createdAt"></todo-list-search>
     </div>
@@ -67,6 +71,14 @@ main {
   height: 70px;
   border-bottom: 1px solid rgba(255,255,255,0.7);
   background: rgba(254,245,228,0.02);
+}
+.result {
+  color: white;
+  padding: 20px 40px;
+  border-top: 1px solid rgba(255,255,255,0.6);
+  background: rgba(254,245,228,0.1);
+  display: flex;
+  justify-content: flex-start;
 }
 </style>
 

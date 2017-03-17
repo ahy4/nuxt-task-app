@@ -4,7 +4,7 @@
       <div>{{name}}</div>
     </div>
     <div class="todo-search-middle">
-      <div>:　{{listName}}</div>
+      <div>リスト: {{listName}}</div>
     </div>
     <div class="todo-search-right">
       <div>登録日: {{parsedCreatedAt}}</div>
@@ -24,8 +24,8 @@
   justify-content: flex-start;
 }
 .todo-search-left {
-  width: 350px;
-  padding-right: 17px;
+  width: 330px;
+  padding-right: 40px;
   display: flex;
   align-items: center;
   font-size: 24px;
