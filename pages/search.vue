@@ -4,7 +4,7 @@
     <div class="search-box">
       <div class="wrap">
         <input type="text" v-model="query">
-        <button @click="search" class="icon-plus"></button>
+        <button @click="search" class="icon-search"></button>
       </div>
     </div>
     <div class="search-todos">
@@ -17,7 +17,6 @@
         :createdAt="new Date(todo.createdAt)"
         :deadline="new Date(todo.deadline)"></todo-search>
     </div>
-    <div>{{JSON.stringify($store.state.search.lists)}}</div>
     <div class="search-lists">
       <p>{{$store.state.search.lists.length}}件のTODOリストが見つかりました</p>
       <todo-list-search

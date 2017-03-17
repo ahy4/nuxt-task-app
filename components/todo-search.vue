@@ -42,9 +42,7 @@
 .todo-search-right {
   padding-left: 50px;
   font-size: 14px;
-/*  display: flex;
-  align-items: center;
-*/}
+}
 </style>
 
 <script>
