@@ -1,5 +1,7 @@
 const Router = require('koa-router');
 
+// もうちょい良い書き方ありそう
+
 module.exports = ({ TodoList, Todo }) =>
 
   new Router()
@@ -13,6 +15,11 @@ module.exports = ({ TodoList, Todo }) =>
           const listName = (await TodoList.findById(todo.lid)).name;
           return Object.assign({ listName }, todo._doc);
         }));
+      })
+
+      .put('/:tid', async (ctx, next) => {
+        const data = Object.assign({}, ctx.request.body);
+        ctx.body = await Todo.update({_id: Number(ctx.params.tid)}, data);
       })
 
       .routes())
@@ -30,7 +37,7 @@ module.exports = ({ TodoList, Todo }) =>
         data.lid = Number(ctx.params.lid);
         data.createdAt = new Date();
         data.deadline = new Date(Number(data.deadline));
-        data.completed = data.completed === 'true';
+        data.checked = data.checked === 'true';
         ctx.body = await new Todo(data).save();
       })
 
@@ -43,7 +50,7 @@ module.exports = ({ TodoList, Todo }) =>
         data.lid = Number(ctx.params.lid);
         data.createdAt = new Date();
         data.deadline = new Date(Number(data.deadline));
-        data.completed = data.completed === 'true';
+        data.checked = data.checked === 'true';
         ctx.body = await Todo.findByIdAndUpdate(Number(ctx.params.tid), data);
       })
 

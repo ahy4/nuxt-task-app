@@ -26,7 +26,7 @@
       <todo-list-search
         v-for="list in $store.state.search.lists"
         :name="list.name"
-        :createdAt="list.createdAt"></todo-list-search>
+        :createdAt="new Date(list.createdAt)"></todo-list-search>
     </div>
   </main>
 </template>

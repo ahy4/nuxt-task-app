@@ -12,6 +12,10 @@ export const mutations = {
   },
   add(state, data) {
     state.todos.push(data);
+  },
+  updateStatus(state, tid) {
+    const idx = state.todos.findIndex((todo) => todo._id === tid);
+    state.todos[idx].checked = !state.todos[idx].checked;
   }
 };
 
@@ -29,5 +33,14 @@ export const actions = {
     console.log(`http://localhost:3000/api/todo-lists/${lid}/todos`);
     let {data} = await axios.post(`http://localhost:3000/api/todo-lists/${lid}/todos`, diff);
     commit('add', data);
+  },
+  async updateStatus({commit, state}, tid) {
+    tid = Number(tid);
+    const sendData = Object.assign({}, state.todos.find((todo) => todo._id === tid));
+    sendData.checked = !sendData.checked;
+    try {
+      await axios.put(`http://localhost:3000/api/todos/${tid}`, sendData);
+      commit('updateStatus', tid);
+    } catch (e) {}
   }
 };

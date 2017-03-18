@@ -33,7 +33,7 @@ module.exports = {
       deadline: {
         type: Date
       },
-      completed: {
+      checked: {
         type: Boolean,
         required: true
       }

@@ -49,7 +49,7 @@ function getOverview({ TodoList, Todo }) {
         data.latestUpdate = Number.POSITIVE_INFINITY;
       } else {
         data.hasChild = true;
-        data.checkedCount = list.todos.filter(({completed}) => completed).length;
+        data.checkedCount = list.todos.filter(({checked}) => checked).length;
         data.latestUpdate = list.todos.reduce((todoA, todoB) => Math.max(todoA.createdAt, todoB.createdAt), {createdAt: 0});
         const now = +new Date();
         data.deadline = list.todos

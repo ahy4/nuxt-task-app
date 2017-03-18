@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="todo-right">
-      <button @click="updateCompleted" :class="completedState ? 'icon-heart-fill' : 'icon-heart-stroke'"></button>
+      <button @click="updateStatus" :class="checked ? 'icon-heart-fill' : 'icon-heart-stroke'"></button>
     </div>
 
   </section>
@@ -69,38 +69,35 @@ export default {
     }
   },
   props: {
+    tid: {
+      required: true
+    },
     name: {
       type: String,
       required: true
     },
     deadline: {
       type: Date,
-      required: false,
-      default: _ => ''
+      required: true,
     },
     createdAt: {
       type: Date,
       required: true
     },
-    completed: {
+    checked: {
       type: Boolean,
       required: true
     }
   },
-  data() {
-    return {
-      completedState: this.completed
-    };
-  },
   methods: {
-    updateCompleted() {
-      this.completedState = !this.completedState;
+    updateStatus() {
+      this.$store.dispatch('todos/updateStatus', this.tid);
+      // this.checked = !this.checked;
     }
   }
 };
 
 function dateFormat(date) {
-  console.log(date);
   date = new Date(date);
   var y = date.getFullYear();
   var m = date.getMonth() + 1;

@@ -14,10 +14,11 @@
     </div>
     <todo-detail
       v-for="todo in $store.state.todos.todos"
+      :tid="Number(todo._id)"
       :name="todo.name"
       :deadline="new Date(todo.deadline)"
       :createdAt="new Date(todo.createdAt)"
-      :completed="todo.completed === true"></todo-detail>
+      :checked="todo.checked === true"></todo-detail>
   </main>
 </template>
 
@@ -93,21 +94,21 @@ export default {
   },
   methods: {
     async createTodo(e) {
-      console.log(this.date.time);
       const sendData = {
         lid: this.$route.params.lid,
         name: this.name,
         deadline: +new Date(this.date.time.split`-`.join`/`),
-        completed: false
+        checked: false
       };
       let err = validation(sendData, 'Todo');
       if (!err) {
         try {
-          console.log('lid:', this.$route.params.lid, typeof this.$route.params.lid);
           this.$store.dispatch('todos/add', {
             diff: sendData,
             lid: this.$route.params.lid
           });
+          this.date.time = '';
+          this.name = '';
         } catch (e) { err = e; }
       }
       if (err) console.log('err:', err);
