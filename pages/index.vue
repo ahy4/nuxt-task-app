@@ -3,7 +3,7 @@
     <div class="spacer"></div>
     <div class="create-list">
       <div class="wrap">
-        <input type="text" placeholder="create new TODO LIST" v-model="name" @keyup="checkValidity" @keyup.enter="createList">
+        <input type="text" placeholder="create new TODO LIST" v-model="name" @keyup="startValidation" @keyup.enter="createList">
         <button @click="createList" class="icon-plus"></button>
         <div class="error-log">
           {{ errorMessage }}
@@ -77,22 +77,29 @@ import validation from '~assets/js/api-validation.js';
 
 export default {
   components: { ListOverview },
+  computed: {
+    errorMessage() {
+      if (!this.validationStarted) return '';
+      let err = validation({name: this.name}, 'TodoList');
+      let errorMessages = '';
+      if (err) {
+        errorMessages += Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
+        const isUnique = !!this.$store.state['todo-lists'].lists.find((list) => list.name === this.name);
+        errorMessages += isUnique ? '既にそのTODOリスト名は登録されています' : '';
+      }
+      return errorMessages;
+    }
+  },
   data: _ => ({
     name: '',
-    errorMessage: ''
+    validationStarted: false
   }),
   async fetch({store}) {
     await store.dispatch('todo-lists/initialize');
   },
   methods: {
-    async checkValidity() {
-      let err = validation({name: this.name}, 'TodoList');
-      if (err) {
-        this.errorMessage = Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
-      } else {
-        const isUnique = !!this.$store.state['todo-lists'].lists.find((list) => list.name === this.name);
-        this.errorMessage = isUnique ? '既にそのTODOリスト名は登録されています' : '';
-      }
+    startValidation() {
+      this.validationStarted = true;
     },
     async createList(evt) {
       const sendData = { name: this.name };
@@ -101,6 +108,7 @@ export default {
         try {
           await this.$store.dispatch('todo-lists/add', sendData);
           this.name = '';
+          this.validationStarted = false;
         } catch (e) { err = e; }
       }
       if (err) console.error('error:', err);
