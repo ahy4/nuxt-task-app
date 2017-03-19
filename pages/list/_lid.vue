@@ -6,7 +6,7 @@
     <div class="create-todo">
       <div class="wrap">
         <div class="create-todo-left">
-          <input type="text" placeholder="ToDo名" v-model="name" @keyup="checkValidity" @keyup.enter="createTodo">
+          <input type="text" placeholder="ToDo名" v-model="name" @keyup="startValidation" @keyup.enter="createTodo">
           <date-picker :date="date" :option="datePickerOption"></date-picker>
         </div>
         <div class="create-todo-right">
@@ -124,14 +124,15 @@ export default {
     date: {
       time: ''
     },
-    errorMessage: '',
+    validationStarted: false,
     datePickerOption
   }),
   async fetch({store, params}) {
     await store.dispatch('todos/initialize', params.lid);
   },
-  methods: {
-    async checkValidity() {
+  computed: {
+    errorMessage() {
+      if (!this.validationStarted) return '';
       const data = {
         lid: this.$route.params.lid,
         name: this.name,
@@ -139,13 +140,18 @@ export default {
         checked: false
       };
       let err = validation(data, 'Todo');
+      let errorMessages = '';
       if (err) {
-        this.errorMessage = Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
-      } else {
+        errorMessages += Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
         const isUnique = !!this.$store.state.todos.todos.find((todo) => todo.name === this.name);
-        this.errorMessage = isUnique ? '既にそのTODO名は登録されています' : '';
+        errorMessages += isUnique ? '既にそのTODO名は登録されています' : '';
       }
-      console.log(this.errorMessage);
+      return errorMessages;
+    }
+  },
+  methods: {
+    startValidation() {
+      this.validationStarted = true;
     },
     async createTodo(e) {
       const sendData = {
@@ -163,6 +169,7 @@ export default {
           });
           this.date.time = '';
           this.name = '';
+          this.validationStarted = false;
         } catch (e) { err = e; }
       }
       if (err) console.log('err:', err);
