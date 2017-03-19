@@ -3,10 +3,10 @@ import validate from 'validate.js';
 const constraints = {
   TodoList: {
     name: {
-      presence: true,
       length: {
         minimum: 1,
-        maximum: 60
+        maximum: 30,
+        message: '^TODOリスト名は1〜30文字で設定してください'
       }
     }
   },
@@ -19,7 +19,8 @@ const constraints = {
       presence: true,
       length: {
         minimum: 1,
-        maximum: 60
+        maximum: 30,
+        message: '^TODOリスト名は1〜30文字で設定してください'
       }
     },
     deadline: {

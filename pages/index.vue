@@ -3,8 +3,11 @@
     <div class="spacer"></div>
     <div class="create-list">
       <div class="wrap">
-        <input type="text" placeholder="create new TODO LIST" v-model="name" @keyup.enter="createList">
+        <input type="text" placeholder="create new TODO LIST" v-model="name" @keyup="checkValidity" @keyup.enter="createList">
         <button @click="createList" class="icon-plus"></button>
+        <div class="error-log">
+          {{ errorMessage }}
+        </div>
       </div>
     </div>
     <list-overview
@@ -31,6 +34,12 @@ main {
   display: flex;
   justify-content: center;
   border-bottom: 1px dashed #ccc;
+  position: relative;
+}
+.wrap > .error-log {
+  position: absolute;
+  top: 110%;
+  color: #fc9bb4;
 }
 .create-list input[type="text"] {
   display: block;
@@ -67,21 +76,33 @@ import validation from '~assets/js/api-validation.js';
 
 export default {
   components: { ListOverview },
-  data: _ => ({ name: '' }),
+  data: _ => ({
+    name: '',
+    errorMessage: ''
+  }),
   async fetch({store}) {
     await store.dispatch('todo-lists/initialize');
   },
   methods: {
+    async checkValidity() {
+      let err = validation({name: this.name}, 'TodoList');
+      if (err) {
+        this.errorMessage = Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
+      } else {
+        const isUnique = !!this.$store.state['todo-lists'].lists.find((list) => list.name === this.name);
+        this.errorMessage = isUnique ? '既にそのTODOリスト名は登録されています' : '';
+      }
+    },
     async createList(evt) {
       const sendData = { name: this.name };
-      let err = validation(sendData, 'TodoList');
+      let err = this.errorMessage;
       if (!err) {
         try {
-          this.$store.dispatch('todo-lists/add', sendData);
+          await this.$store.dispatch('todo-lists/add', sendData);
+          this.name = '';
         } catch (e) { err = e; }
-        this.name = '';
       }
-      if (err) console.log('err:', err);
+      if (err) console.error('error:', err);
     }
   }
 };

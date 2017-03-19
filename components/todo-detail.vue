@@ -59,6 +59,8 @@
 </style>
 
 <script>
+import dateFormat from '~assets/js/date-format';
+
 export default {
   computed: {
     parsedDeadline() {
@@ -92,29 +94,7 @@ export default {
   methods: {
     updateStatus() {
       this.$store.dispatch('todos/updateStatus', this.tid);
-      // this.checked = !this.checked;
     }
   }
 };
-
-function dateFormat(date) {
-  date = new Date(date);
-  var y = date.getFullYear();
-  var m = date.getMonth() + 1;
-  var d = date.getDate();
-  var w = date.getDay();
-  var wNames = ['日', '月', '火', '水', '木', '金', '土'];
-
-  if (m < 10) {
-    m = '0' + m;
-  }
-  if (d < 10) {
-    d = '0' + d;
-  }
-
-  // フォーマット整形済みの文字列を戻り値にする
-  return y + '年' + m + '月' + d + '日 (' + wNames[w] + ')';
-}
-</script>
-
 </script>
