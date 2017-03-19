@@ -16,7 +16,6 @@ const constraints = {
       numericality: true
     },
     name: {
-      presence: true,
       length: {
         minimum: 1,
         maximum: 30,
@@ -24,8 +23,12 @@ const constraints = {
       }
     },
     deadline: {
-      presence: true,
-      numericality: true
+      presence: {
+        message: '^期限も入力してください'
+      },
+      numericality: {
+        message: '^期限も入力してください'
+      }
     },
     checked: {
       presence: true

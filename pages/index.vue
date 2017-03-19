@@ -38,7 +38,7 @@ main {
 }
 .wrap > .error-log {
   position: absolute;
-  top: 110%;
+  top: 105%;
   color: #fc9bb4;
 }
 .create-list input[type="text"] {
@@ -68,6 +68,7 @@ main {
   border-bottom: 1px solid rgba(255,255,255,0.7);
   background: rgba(254,245,228,0.02);
 }
+
 </style>
 
 <script>

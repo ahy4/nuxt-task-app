@@ -4,12 +4,17 @@
       {{$store.state.todos.listName}}
     </div>
     <div class="create-todo">
-      <div class="create-todo-left">
-        <input type="text" placeholder="ToDo名" v-model="name" @keyup.enter="createTodo">
-        <date-picker :date="date"></date-picker>
-      </div>
-      <div class="create-todo-right">
-        <button @click="createTodo" class="icon-plus"></button>
+      <div class="wrap">
+        <div class="create-todo-left">
+          <input type="text" placeholder="ToDo名" v-model="name" @keyup="checkValidity" @keyup.enter="createTodo">
+          <date-picker :date="date" :option="datePickerOption"></date-picker>
+        </div>
+        <div class="create-todo-right">
+          <button @click="createTodo" class="icon-plus"></button>
+        </div>
+        <div class="error-log">
+          {{ errorMessage }}
+        </div>
       </div>
     </div>
     <div>
@@ -43,9 +48,19 @@ main {
   width: 100%;
 }
 .create-todo-right {
+  padding-left: 20px;
+}
+.wrap {
+  justify-content: center;
   align-items: center;
   display: flex;
-  padding-left: 20px;
+  position: relative;
+  width: 100%;
+}
+.wrap > .error-log {
+  position: absolute;
+  top: 105%;
+  color: #fc9bb4;
 }
 .create-todo input[type="text"] {
   display: block;
@@ -94,18 +109,44 @@ import TodoDetail from '~components/todo-detail';
 import DatePicker from 'vue-datepicker/vue-datepicker-es6.vue';
 import validation from '~assets/js/api-validation';
 
+const datePickerOption = {
+  placeholder: '期限',
+  type: 'day',
+  week: '月火水木金土日'.split``,
+  month: Array.from({length: 12}, (_, i) => (i + 1) + '月'),
+  format: 'YYYY-MM-DD'
+};
+
 export default {
   components: { TodoDetail, DatePicker },
   data: _ => ({
     name: '',
     date: {
       time: ''
-    }
+    },
+    errorMessage: '',
+    datePickerOption
   }),
   async fetch({store, params}) {
     await store.dispatch('todos/initialize', params.lid);
   },
   methods: {
+    async checkValidity() {
+      const data = {
+        lid: this.$route.params.lid,
+        name: this.name,
+        deadline: +new Date(this.date.time.split`-`.join`/`),
+        checked: false
+      };
+      let err = validation(data, 'Todo');
+      if (err) {
+        this.errorMessage = Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
+      } else {
+        const isUnique = !!this.$store.state.todos.todos.find((todo) => todo.name === this.name);
+        this.errorMessage = isUnique ? '既にそのTODO名は登録されています' : '';
+      }
+      console.log(this.errorMessage);
+    },
     async createTodo(e) {
       const sendData = {
         lid: this.$route.params.lid,
