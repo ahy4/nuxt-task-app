@@ -3,13 +3,16 @@
     <div class="spacer"></div>
     <div class="search-box">
       <div class="wrap">
-        <input type="text" v-model="query">
+        <input type="text" v-model="query" @keyup.enter="search">
         <button @click="search" class="icon-search"></button>
       </div>
     </div>
     <div class="search-todos">
       <div class="result">
-        {{$store.state.search.todos.length}}件のTODOが見つかりました
+        <p v-if="$store.state.search.todos.length === 0">対称のTODOは見つかりません</p>
+        <p v-else>
+          {{$store.state.search.todos.length}}件のTODOが見つかりました
+        </p>
       </div>
       <todo-search
         v-for="todo in $store.state.search.todos"
@@ -21,7 +24,10 @@
     </div>
     <div class="search-lists">
       <div class="result">
+      <p v-if="$store.state.search.lists.length === 0">対称のTODOリストは見つかりません</p>
+      <p v-else>
         {{$store.state.search.lists.length}}件のTODOリストが見つかりました
+      </p>
       </div>
       <todo-list-search
         v-for="list in $store.state.search.lists"

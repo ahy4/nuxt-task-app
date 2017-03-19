@@ -3,7 +3,7 @@
     <div class="spacer"></div>
     <div class="create-list">
       <div class="wrap">
-        <input type="text" placeholder="create new TODO LIST" v-model="name">
+        <input type="text" placeholder="create new TODO LIST" v-model="name" @keyup.enter="createList">
         <button @click="createList" class="icon-plus"></button>
       </div>
     </div>

@@ -5,20 +5,26 @@
     </div>
     <div class="create-todo">
       <div class="create-todo-left">
-        <input type="text" placeholder="ToDo名" v-model="name">
+        <input type="text" placeholder="ToDo名" v-model="name" @keyup.enter="createTodo">
         <date-picker :date="date"></date-picker>
       </div>
       <div class="create-todo-right">
         <button @click="createTodo" class="icon-plus"></button>
       </div>
     </div>
-    <todo-detail
-      v-for="todo in $store.state.todos.todos"
-      :tid="Number(todo._id)"
-      :name="todo.name"
-      :deadline="new Date(todo.deadline)"
-      :createdAt="new Date(todo.createdAt)"
-      :checked="todo.checked === true"></todo-detail>
+    <div>
+      <div class="result" v-if="$store.state.todos.todos.length === 0">
+        登録されたTODOはございません
+      </div>
+      <todo-detail
+        v-else
+        v-for="todo in $store.state.todos.todos"
+        :tid="Number(todo._id)"
+        :name="todo.name"
+        :deadline="new Date(todo.deadline)"
+        :createdAt="new Date(todo.createdAt)"
+        :checked="todo.checked === true"></todo-detail>
+    </div>
   </main>
 </template>
 
@@ -73,7 +79,14 @@ main {
   border-bottom: 1px solid rgba(255,255,255,0.7);
   background: rgba(254,245,228,0.02);
 }
-
+.result {
+  color: white;
+  padding: 20px 40px;
+  border-top: 1px solid rgba(255,255,255,0.6);
+  background: rgba(254,245,228,0.1);
+  display: flex;
+  justify-content: flex-start;
+}
 </style>
 
 <script>
