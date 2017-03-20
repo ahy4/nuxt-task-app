@@ -23,7 +23,7 @@
       </div>
       <todo-detail
         v-else
-        v-for="todo in $store.state.todos.todos"
+        v-for="todo in $store.state.todos.todos.concat().reverse()"
         :tid="Number(todo._id)"
         :name="todo.name"
         :deadline="new Date(todo.deadline)"

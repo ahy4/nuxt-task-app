@@ -3,11 +3,9 @@ import axios from '~plugins/axios';
 export default () => axios.get('/api/todos').then(({data}) => {
   const messages = data.filter(({deadline}) => {
     const diff = +new Date(deadline) - new Date();
-    console.log(diff, diff > -1 * 24 * 60 * 60 * 1000, diff < 2 * 24 * 60 * 60 * 1000);
     return diff > -1 * 24 * 60 * 60 * 1000 && diff < 2 * 24 * 60 * 60 * 1000;
   }).map(({name}) => name);
   notifyMessages(messages);
-  console.log('messages:', messages);
 });
 
 function notifyMessages(messages) {

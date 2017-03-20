@@ -50,13 +50,16 @@ function getOverview({ TodoList, Todo }) {
       } else {
         data.hasChild = true;
         data.checkedCount = list.todos.filter(({checked}) => checked).length;
-        data.latestUpdate = list.todos.reduce((todoA, todoB) => Math.max(todoA.createdAt, todoB.createdAt), {createdAt: 0});
+        data.latestUpdate = list.todos
+          .filter(({checked}) => !checked)
+          .map(({createdAt}) => createdAt)
+          .reduce((a, b) => Math.max(+new Date(a), +new Date(b)), 0);
         const now = +new Date();
-        data.deadline = list.todos
+        data.deadline = +new Date(list.todos
           .map((todo) => (todo && todo.deadline) || 1) // because deadline is optional
           .reduce((deadlineA, deadlineB) => {
-            return Math.abs(deadlineA - now) < Math.abs(deadlineB - now) ? deadlineA : deadlineB;
-          }, 1);
+            return Math.abs(+new Date(deadlineA) - now) < Math.abs(+new Date(deadlineB) - now) ? +new Date(deadlineA) : +new Date(deadlineB);
+          }, 1));
       }
       return data;
     }).sort((a, b) => b.latestUpdate - a.latestUpdate).map((o) => {

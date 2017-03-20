@@ -15,7 +15,7 @@
         </p>
       </div>
       <todo-search
-        v-for="todo in $store.state.search.todos"
+        v-for="todo in $store.state.search.todos.concat().reverse()"
         :lid="Number(todo.lid)"
         :name="todo.name"
         :listName="todo.listName"
@@ -30,7 +30,7 @@
       </p>
       </div>
       <todo-list-search
-        v-for="list in $store.state.search.lists"
+        v-for="list in $store.state.search.lists.concat().reverse()"
         :name="list.name"
         :createdAt="new Date(list.createdAt)"></todo-list-search>
     </div>
