@@ -142,10 +142,10 @@ export default {
       let err = validation(data, 'Todo');
       let errorMessages = '';
       if (err) {
-        errorMessages += Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
-        const isUnique = !!this.$store.state.todos.todos.find((todo) => todo.name === this.name);
-        errorMessages += isUnique ? '既にそのTODO名は登録されています' : '';
+        errorMessages += Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　') + '　';
       }
+      const isUnique = !!this.$store.state.todos.todos.find((todo) => todo.name === this.name);
+      errorMessages += isUnique ? '既にそのTODO名は登録されています' : '';
       return errorMessages;
     }
   },

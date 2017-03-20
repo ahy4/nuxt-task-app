@@ -83,10 +83,10 @@ export default {
       let err = validation({name: this.name}, 'TodoList');
       let errorMessages = '';
       if (err) {
-        errorMessages += Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　');
-        const isUnique = !!this.$store.state['todo-lists'].lists.find((list) => list.name === this.name);
-        errorMessages += isUnique ? '既にそのTODOリスト名は登録されています' : '';
+        errorMessages += Array.prototype.concat.apply([], Object.keys(err).map(k => err[k])).join('　') + '　';
       }
+      const isUnique = !!this.$store.state['todo-lists'].lists.find((list) => list.name === this.name);
+      errorMessages += isUnique ? '既にそのTODOリスト名は登録されています' : '';
       return errorMessages;
     }
   },
