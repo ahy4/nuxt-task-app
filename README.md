@@ -86,7 +86,7 @@ Radiumなどのcss-in-js系のものが出てきたり、postcssのようにcss�
 
 [vuex](https://vuex.vuejs.org/ja/intro.html)はflux系のアーキテクチャです。
 
-![Alt text](./1490028379776.png)
+![Alt text](https://vuex.vuejs.org/ja/images/vuex.png)
 
 引用：https://vuex.vuejs.org/ja/intro.html
 
