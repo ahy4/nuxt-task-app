@@ -1,5 +1,5 @@
 module.exports = {
-  url: process.env.MONGODB_URI || 'mongodb://localhost/test',
+  url: process.env.MONGODB_URI || 'mongodb://localhost/nuxt-task-app',
   schema: {
     TodoList: {
       _id: {
