@@ -1,6 +1,9 @@
 {
   "name": "task-app",
   "version": "1.0.0",
+  "engines": {
+    "node": "7.7.1"
+  },
   "description": "Nuxt.js project",
   "author": "ahyahya <mrfool38@gmail.com>",
   "private": true,
