@@ -91,6 +91,9 @@ main {
 <script>
 import TodoSearch from '~components/todo-search.vue';
 import TodoListSearch from '~components/todo-list-search.vue';
+import notify from '~assets/js/notify';
+
+notify();
 
 export default {
   components: { TodoSearch, TodoListSearch },

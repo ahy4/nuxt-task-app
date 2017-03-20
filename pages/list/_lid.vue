@@ -107,6 +107,9 @@ main {
 import TodoDetail from '~components/todo-detail';
 import DatePicker from 'vue-datepicker/vue-datepicker-es6.vue';
 import validation from '~assets/js/api-validation';
+import notify from '~assets/js/notify';
+
+notify();
 
 const datePickerOption = {
   placeholder: '期限',

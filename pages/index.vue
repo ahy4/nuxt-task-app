@@ -73,6 +73,9 @@ main {
 <script>
 import ListOverview from '~components/list-overview.vue';
 import validation from '~assets/js/api-validation.js';
+import notify from '~assets/js/notify';
+
+notify();
 
 export default {
   components: { ListOverview },

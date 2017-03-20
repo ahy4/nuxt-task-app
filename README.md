@@ -66,7 +66,7 @@ nuxt.jsは主にサーバーサイドレンダリング（以降SSRと書く）�
 
 要するに、ブラウザ側でもdevelopmentモードかproductionモードかをかんたんに判別できます。
 
-## vue.js v2
+### vue.js v2
 
 vue.jsを触るのは初めてでしたが、おもったよりも使いやすいと感じました。
 
@@ -82,7 +82,7 @@ Radiumなどのcss-in-js系のものが出てきたり、postcssのようにcss�
 
 データの取扱に関しても文句ないです。
 
-## vuex
+### vuex
 
 [vuex](https://vuex.vuejs.org/ja/intro.html)はflux系のアーキテクチャです。
 
@@ -98,10 +98,20 @@ mutationでは受けた情報をもとにstateをアップデートします。
 
 stateの更新をvuejsが検知し次第、vueは要素の差分を計算してrenderします。
 
-## koa@next
+### koa@next
 
 基本的にapiサーバとして振る舞います。
 
 apiを発行するだけならkoa以外に軽量なものもありますが、nuxtのscaffoldingでサポートされていたため採用しました。
 
-apiが呼ばれた時、mongooseを通じてmongodbを操作して、responseを発行してます
+apiが呼ばれた時、mongooseを通じてmongodbを操作して、responseを発行してます。
+
+/api/から始まらないルーティングの部分にアクセスされた場合、それ以上koaは深入りせずnuxt-routerにまかせてます
+
+### 仕様書にない追加点
+
+今日、明日、明後日が〆切であるようなTODOが存在し、なおかつwebアプリが踏まれた場合、
+
+ブラウザのプッシュ通知機能を使ってそのTODO名を通知します。
+
+通知は1日に1回だけしか発生しません。/assets/js/notify.jsを参照。
