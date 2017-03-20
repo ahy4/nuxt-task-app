@@ -1,5 +1,5 @@
 module.exports = {
-  url: 'mongodb://localhost/test',
+  url: process.env.mongodbUri,
   schema: {
     TodoList: {
       _id: {

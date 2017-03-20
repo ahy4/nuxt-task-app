@@ -22,6 +22,7 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost/test'
   }
 };
