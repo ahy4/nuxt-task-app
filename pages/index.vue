@@ -25,7 +25,6 @@
 main {
   margin: 0 auto;
   width: 960px;
-  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif;
 }
 .create-list {
   padding: 40px 100px;

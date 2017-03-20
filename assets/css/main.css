@@ -4,6 +4,7 @@ html, body {
   letter-spacing: 0.5px;
   height: 100vh;
   margin: 0;
+  font-family: 'Josefin Slab', 'M+ 1c light', "HiraginoSans-W2", "ヒラギノ角ゴシック W2", "メイリオ", "Meiryo", serif !important;
 }
 
 a, a:hover, a:focus, a:visited {
