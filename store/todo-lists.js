@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '~plugins/axios';
 
 export const state = {
   lists: []
@@ -15,11 +15,11 @@ export const mutations = {
 
 export const actions = {
   async initialize({commit}) {
-    const {data} = await axios.get('http://localhost:3000/api/todo-lists/overview');
+    const {data} = await axios.get('/api/todo-lists/overview');
     commit('initialize', data);
   },
   async add({commit}, diff) {
-    let {data} = await axios.post('http://localhost:3000/api/todo-lists', diff);
+    let {data} = await axios.post('/api/todo-lists', diff);
     data = Object.assign({
       count: 0,
       hasChild: false

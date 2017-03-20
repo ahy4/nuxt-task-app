@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '~plugins/axios';
 
 export const state = {
   listName: '',
@@ -21,8 +21,8 @@ export const mutations = {
 
 export const actions = {
   async initialize({commit}, lid) {
-    const p1 = axios.get(`http://localhost:3000/api/todo-lists/${lid}`);
-    const p2 = axios.get(`http://localhost:3000/api/todo-lists/${lid}/todos`);
+    const p1 = axios.get(`/api/todo-lists/${lid}`);
+    const p2 = axios.get(`/api/todo-lists/${lid}/todos`);
     const [res1, res2] = await Promise.all([p1, p2]);
     commit('initialize', {
       listName: res1.data.name,
@@ -30,8 +30,8 @@ export const actions = {
     });
   },
   async add({commit}, {diff, lid}) {
-    console.log(`http://localhost:3000/api/todo-lists/${lid}/todos`);
-    let {data} = await axios.post(`http://localhost:3000/api/todo-lists/${lid}/todos`, diff);
+    console.log(`/api/todo-lists/${lid}/todos`);
+    let {data} = await axios.post(`/api/todo-lists/${lid}/todos`, diff);
     commit('add', data);
   },
   async updateStatus({commit, state}, tid) {
@@ -39,7 +39,7 @@ export const actions = {
     const sendData = Object.assign({}, state.todos.find((todo) => todo._id === tid));
     sendData.checked = !sendData.checked;
     try {
-      await axios.put(`http://localhost:3000/api/todos/${tid}`, sendData);
+      await axios.put(`/api/todos/${tid}`, sendData);
       commit('updateStatus', tid);
     } catch (e) {}
   }

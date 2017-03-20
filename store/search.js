@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '~plugins/axios';
 
 export const state = {
   lists: [],
@@ -17,8 +17,8 @@ export const mutations = {
 export const actions = {
   async exec({commit}, q) {
     const option = { params: {q} };
-    const p1 = await axios.get('http://localhost:3000/api/todo-lists/', option);
-    const p2 = await axios.get('http://localhost:3000/api/todos/', option);
+    const p1 = await axios.get('/api/todo-lists/', option);
+    const p2 = await axios.get('/api/todos/', option);
     const [lists, todos] = (await Promise.all([p1, p2])).map(({data}) => data);
     commit('exec', { lists, todos });
   }
